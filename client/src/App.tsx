@@ -17,7 +17,7 @@ function Router() {
     <Switch>
       {/* Public routes */}
       <Route path={"/"} component={Home} />
-      
+
       {/* Admin routes */}
       <Route path={"/admin"}>
         <DashboardLayout>
@@ -44,7 +44,7 @@ function Router() {
           <ProductsManage />
         </DashboardLayout>
       </Route>
-      
+
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>
@@ -54,7 +54,7 @@ function Router() {
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider defaultTheme="light">
+      <ThemeProvider defaultTheme="light" switchable={true}>
         <TooltipProvider>
           <Toaster />
           <Router />
