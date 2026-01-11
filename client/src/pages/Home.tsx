@@ -1,4 +1,3 @@
-import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,21 +11,21 @@ import { useTheme } from "@/contexts/ThemeContext";
 // TikTok SVG icon component
 const TikTokIcon = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
   </svg>
 );
 
 // Kakao icon component
 const KakaoIcon = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 3c-5.52 0-10 3.58-10 8 0 2.84 1.89 5.33 4.71 6.73-.16.57-.51 2.05-.58 2.37-.09.42.15.41.32.3.13-.09 2.05-1.39 2.88-1.95.85.13 1.74.2 2.67.2 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/>
+    <path d="M12 3c-5.52 0-10 3.58-10 8 0 2.84 1.89 5.33 4.71 6.73-.16.57-.51 2.05-.58 2.37-.09.42.15.41.32.3.13-.09 2.05-1.39 2.88-1.95.85.13 1.74.2 2.67.2 5.52 0 10-3.58 10-8s-4.48-8-10-8z" />
   </svg>
 );
 
 // Naver icon component
 const NaverIcon = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M16.273 12.845 7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
+    <path d="M16.273 12.845 7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z" />
   </svg>
 );
 
@@ -56,6 +55,97 @@ const SOCIAL_COLORS: Record<string, string> = {
   kakao: "hover:text-yellow-500 hover:scale-110",
   naver: "hover:text-green-500 hover:scale-110",
 };
+
+// --- 하드코딩된 샘플 데이터 ---
+const MOCK_PROFILE = {
+  displayName: "영빈",
+  profileImageUrl: "https://imagedelivery.net/variant/48dcb89e-269e-4a41-8664-6725c4873100/public",
+  bio: "육아용품을 판매하는 Instagram 크리에이터 영빈입니다. 좋은 제품만 엄선해서 추천해드려요! 👶🏻",
+  instagramHandle: "youngbin_official",
+  socialLinks: {
+    instagram: "https://instagram.com/youngbin_official",
+    youtube: "https://youtube.com/@youngbin",
+    kakao: "https://open.kakao.com/me/youngbin",
+    tiktok: "https://tiktok.com/@youngbin"
+  }
+};
+
+const MOCK_LINKS = [
+  {
+    id: 1,
+    title: "🔥 이번 주 공구 상품 보러가기",
+    description: "최대 50% 할인! 놓치지 마세요",
+    url: "https://smartstore.naver.com/youngbin",
+    isPriority: true
+  },
+  {
+    id: 2,
+    title: "👶🏻 영빈이네 육아 꿀팁 모음",
+    description: "실전 육아 노하우를 블로그에서 확인하세요",
+    url: "https://blog.naver.com/youngbin",
+    isPriority: true
+  },
+  {
+    id: 3,
+    title: "카카오톡 1:1 문의",
+    description: "궁금한 점이 있다면 언제든 물어보세요",
+    url: "https://open.kakao.com/me/youngbin",
+    isPriority: false
+  },
+  {
+    id: 4,
+    title: "자주 묻는 질문 (FAQ)",
+    description: "배송, 교환, 환불 정책 안내",
+    url: "#",
+    isPriority: false
+  }
+];
+
+const MOCK_PRODUCTS = [
+  {
+    id: 1,
+    name: "프리미엄 오가닉 아기 물티슈 10팩",
+    price: "19,900원",
+    imageUrl: "https://thumbnail7.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/2024/01/01/12/3/4a5b6c7d-8e9f-0a1b-2c3d-4e5f6g7h8i9j.jpg", // 임시 쿠팡 이미지
+    affiliateUrl: "https://coupang.com"
+  },
+  {
+    id: 2,
+    name: "국민 육아템! 타이니러브 모빌",
+    price: "45,000원",
+    imageUrl: "https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/images/2024/01/01/12/3/5a6b7c8d-9e0f-1a2b-3c4d-5e6f7g8h9i0j.jpg", // 임시 이미지
+    affiliateUrl: "https://coupang.com"
+  },
+  {
+    id: 3,
+    name: "말랑말랑 실리콘 치발기 세트",
+    price: "12,900원",
+    imageUrl: "https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/2024/01/01/12/3/6a7b8c9d-0e1f-2a3b-4c5d-6e7f8g9h0i1j.jpg", // 임시 이미지
+    affiliateUrl: "https://coupang.com"
+  },
+  {
+    id: 4,
+    name: "안전한 유아용 카시트 (신생아~7세)",
+    price: "250,000원",
+    imageUrl: "https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/images/2024/01/01/12/3/7a8b9c0d-1e2f-3a4b-5c6d-7e8f9g0h1i2j.jpg", // 임시 이미지
+    affiliateUrl: "https://coupang.com"
+  }
+];
+
+const MOCK_CAROUSEL = [
+  {
+    id: 1,
+    title: "🎉 2026 신년 맞이 이벤트",
+    imageUrl: "https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=2070&auto=format&fit=crop",
+    linkUrl: "#"
+  },
+  {
+    id: 2,
+    title: "우리 아이 첫 이유식 가이드",
+    imageUrl: "https://images.unsplash.com/photo-1595350356612-4299b8d29853?q=80&w=2070&auto=format&fit=crop",
+    linkUrl: "#"
+  }
+];
 
 // Get time-based greeting
 const getTimeGreeting = (): string => {
@@ -92,7 +182,7 @@ const itemVariants = {
 
 const linkButtonVariants = {
   rest: { scale: 1 },
-  hover: { 
+  hover: {
     scale: 1.02,
     transition: { type: "spring", stiffness: 400, damping: 10 }
   },
@@ -104,22 +194,27 @@ export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const { theme, toggleTheme, switchable } = useTheme();
   const [greeting] = useState(getTimeGreeting());
-  
-  const { data: profile, isLoading: profileLoading } = trpc.profile.get.useQuery();
-  const { data: links = [], isLoading: linksLoading } = trpc.links.list.useQuery();
-  const { data: carouselImages = [] } = trpc.carousel.list.useQuery();
-  const { data: products = [] } = trpc.products.list.useQuery();
-  
-  const trackClick = trpc.links.trackClick.useMutation();
-  const subscribe = trpc.newsletter.subscribe.useMutation({
-    onSuccess: () => {
-      toast.success("뉴스레터 구독이 완료되었습니다! 🎉");
+
+  // DB 데이터 대신 하드코딩 데이터 사용
+  const profile = MOCK_PROFILE;
+  const links = MOCK_LINKS;
+  const carouselImages = MOCK_CAROUSEL;
+  const products = MOCK_PRODUCTS;
+
+  const handleLinkClick = (linkId: number, url: string) => {
+    // 트래킹 API 제거 (정적 사이트)
+    console.log(`Link clicked: ${linkId}`);
+    window.open(url, "_blank");
+  };
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      // 구독 API 제거 (토스트만 표시)
+      toast.success("뉴스레터 구독이 완료되었습니다! 🎉 (데모)");
       setEmail("");
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+    }
+  };
 
   // Scroll to top button visibility
   useEffect(() => {
@@ -134,40 +229,9 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleLinkClick = (linkId: number, url: string) => {
-    trackClick.mutate({
-      linkId,
-      userAgent: navigator.userAgent,
-    });
-    window.open(url, "_blank");
-  };
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      subscribe.mutate({ email });
-    }
-  };
-
   const priorityLinks = links.filter(link => link.isPriority);
   const regularLinks = links.filter(link => !link.isPriority);
   const socialLinks = (profile?.socialLinks as any) || {};
-
-  // Skeleton loading component
-  const SkeletonCard = () => (
-    <Card className="border-2 shadow-lg animate-pulse">
-      <CardContent className="pt-8 pb-6 text-center space-y-4">
-        <div className="flex justify-center">
-          <div className="w-24 h-24 rounded-full bg-muted" />
-        </div>
-        <div className="space-y-2">
-          <div className="h-8 bg-muted rounded w-32 mx-auto" />
-          <div className="h-4 bg-muted rounded w-48 mx-auto" />
-          <div className="h-4 bg-muted rounded w-64 mx-auto" />
-        </div>
-      </CardContent>
-    </Card>
-  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 dark:from-primary/5 dark:via-secondary/5 dark:to-accent/5 transition-colors duration-500">
@@ -206,14 +270,14 @@ export default function Home() {
         </motion.button>
       )}
 
-      <motion.div 
+      <motion.div
         className="container max-w-2xl py-12 space-y-8"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         {/* Time-based greeting */}
-        <motion.div 
+        <motion.div
           variants={itemVariants}
           className="text-center"
         >
@@ -223,75 +287,71 @@ export default function Home() {
         </motion.div>
 
         {/* Profile Header */}
-        {profileLoading ? (
-          <SkeletonCard />
-        ) : (
-          <motion.div variants={itemVariants}>
-            <Card className="border-2 shadow-lg backdrop-blur-sm bg-card/80 hover:shadow-xl transition-shadow duration-300">
-              <CardContent className="pt-8 pb-6 text-center space-y-4">
-                {profile?.profileImageUrl && (
-                  <motion.div 
-                    className="flex justify-center"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+        <motion.div variants={itemVariants}>
+          <Card className="border-2 shadow-lg backdrop-blur-sm bg-card/80 hover:shadow-xl transition-shadow duration-300">
+            <CardContent className="pt-8 pb-6 text-center space-y-4">
+              {profile?.profileImageUrl && (
+                <motion.div
+                  className="flex justify-center"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <img
+                    src={profile.profileImageUrl}
+                    alt={profile.displayName}
+                    className="w-24 h-24 rounded-full object-cover border-4 border-primary/20 shadow-lg"
+                  />
+                </motion.div>
+              )}
+              <div>
+                <h1 className="text-3xl font-bold text-foreground mb-2">
+                  {profile?.displayName || "영빈"}
+                </h1>
+                {profile?.instagramHandle && (
+                  <div className="flex items-center justify-center gap-2 text-muted-foreground mb-2">
+                    <Instagram className="w-4 h-4" />
+                    <span>@{profile.instagramHandle}</span>
+                  </div>
+                )}
+                {profile?.bio && (
+                  <p className="text-muted-foreground max-w-md mx-auto leading-relaxed">
+                    {profile.bio}
+                  </p>
+                )}
+
+                {/* Social Media Icons */}
+                {Object.entries(socialLinks).some(([_, url]) => url) && (
+                  <motion.div
+                    className="flex justify-center gap-5 mt-4 pt-4 border-t border-border"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
                   >
-                    <img 
-                      src={profile.profileImageUrl} 
-                      alt={profile.displayName}
-                      className="w-24 h-24 rounded-full object-cover border-4 border-primary/20 shadow-lg"
-                    />
+                    {Object.entries(socialLinks).map(([platform, url]) => {
+                      if (!url) return null;
+                      const Icon = SOCIAL_ICONS[platform] || ExternalLink;
+                      const colorClass = SOCIAL_COLORS[platform] || "hover:text-primary hover:scale-110";
+                      return (
+                        <motion.a
+                          key={platform}
+                          href={url as string}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`transition-all duration-200 ${colorClass}`}
+                          title={platform}
+                          whileHover={{ y: -3 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          <Icon className="w-5 h-5" />
+                        </motion.a>
+                      );
+                    })}
                   </motion.div>
                 )}
-                <div>
-                  <h1 className="text-3xl font-bold text-foreground mb-2">
-                    {profile?.displayName || "영빈"}
-                  </h1>
-                  {profile?.instagramHandle && (
-                    <div className="flex items-center justify-center gap-2 text-muted-foreground mb-2">
-                      <Instagram className="w-4 h-4" />
-                      <span>@{profile.instagramHandle}</span>
-                    </div>
-                  )}
-                  {profile?.bio && (
-                    <p className="text-muted-foreground max-w-md mx-auto leading-relaxed">
-                      {profile.bio}
-                    </p>
-                  )}
-                  
-                  {/* Social Media Icons */}
-                  {Object.entries(socialLinks).some(([_, url]) => url) && (
-                    <motion.div 
-                      className="flex justify-center gap-5 mt-4 pt-4 border-t border-border"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.3 }}
-                    >
-                      {Object.entries(socialLinks).map(([platform, url]) => {
-                        if (!url) return null;
-                        const Icon = SOCIAL_ICONS[platform] || ExternalLink;
-                        const colorClass = SOCIAL_COLORS[platform] || "hover:text-primary hover:scale-110";
-                        return (
-                          <motion.a
-                            key={platform}
-                            href={url as string}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`transition-all duration-200 ${colorClass}`}
-                            title={platform}
-                            whileHover={{ y: -3 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <Icon className="w-5 h-5" />
-                          </motion.a>
-                        );
-                      })}
-                    </motion.div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Featured Carousel */}
         {carouselImages.length > 0 && (
@@ -306,13 +366,13 @@ export default function Home() {
                   <CarouselContent>
                     {carouselImages.map((image) => (
                       <CarouselItem key={image.id}>
-                        <motion.div 
+                        <motion.div
                           className="relative aspect-video rounded-lg overflow-hidden"
                           whileHover={{ scale: 1.02 }}
                           transition={{ type: "spring", stiffness: 300 }}
                         >
-                          <img 
-                            src={image.imageUrl} 
+                          <img
+                            src={image.imageUrl}
                             alt={image.title || "Featured"}
                             className="w-full h-full object-cover"
                           />
@@ -322,9 +382,9 @@ export default function Home() {
                             </div>
                           )}
                           {image.linkUrl && (
-                            <a 
-                              href={image.linkUrl} 
-                              target="_blank" 
+                            <a
+                              href={image.linkUrl}
+                              target="_blank"
                               rel="noopener noreferrer"
                               className="absolute inset-0"
                             >
@@ -434,11 +494,11 @@ export default function Home() {
                       transition={{ type: "spring", stiffness: 300 }}
                     >
                       <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50">
-                        <div className="aspect-square overflow-hidden">
-                          <img 
-                            src={product.imageUrl} 
+                        <div className="aspect-square overflow-hidden bg-white">
+                          <img
+                            src={product.imageUrl}
                             alt={product.name}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            className="w-full h-full object-contain p-2 group-hover:scale-110 transition-transform duration-500"
                           />
                         </div>
                         <CardContent className="p-3">
@@ -465,13 +525,13 @@ export default function Home() {
           <Card className="border-2 shadow-lg bg-gradient-to-br from-primary/15 to-accent/15 backdrop-blur-sm">
             <CardContent className="p-6">
               <div className="text-center space-y-4">
-                <motion.div 
+                <motion.div
                   className="flex justify-center"
-                  animate={{ 
+                  animate={{
                     y: [0, -5, 0],
                   }}
-                  transition={{ 
-                    repeat: Infinity, 
+                  transition={{
+                    repeat: Infinity,
                     duration: 2,
                     ease: "easeInOut"
                   }}
@@ -495,12 +555,11 @@ export default function Home() {
                     required
                     className="flex-1 bg-card/50"
                   />
-                  <Button 
-                    type="submit" 
-                    disabled={subscribe.isPending}
+                  <Button
+                    type="submit"
                     className="shadow-md hover:shadow-lg transition-shadow"
                   >
-                    {subscribe.isPending ? "구독 중..." : "구독"}
+                    구독
                   </Button>
                 </form>
               </div>
@@ -509,7 +568,7 @@ export default function Home() {
         </motion.div>
 
         {/* Footer */}
-        <motion.div 
+        <motion.div
           variants={itemVariants}
           className="text-center text-sm text-muted-foreground py-4"
         >
