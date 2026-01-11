@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, json } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -28,6 +28,18 @@ export const profiles = mysqlTable("profiles", {
   bio: text("bio"),
   instagramHandle: varchar("instagramHandle", { length: 100 }),
   profileImageUrl: text("profileImageUrl"),
+  backgroundImageUrl: text("backgroundImageUrl"),
+  backgroundColor: varchar("backgroundColor", { length: 50 }),
+  socialLinks: json("socialLinks").$type<{
+    instagram?: string;
+    youtube?: string;
+    tiktok?: string;
+    twitter?: string;
+    twitch?: string;
+    discord?: string;
+    telegram?: string;
+    email?: string;
+  }>(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -47,6 +59,9 @@ export const links = mysqlTable("links", {
   isPriority: boolean("isPriority").default(false).notNull(),
   isActive: boolean("isActive").default(true).notNull(),
   sortOrder: int("sortOrder").default(0).notNull(),
+  icon: varchar("icon", { length: 50 }), // lucide icon name
+  backgroundColor: varchar("backgroundColor", { length: 50 }),
+  textColor: varchar("textColor", { length: 50 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

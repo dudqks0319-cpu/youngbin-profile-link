@@ -15,6 +15,13 @@
       "when": 1768143086143,
       "tag": "0001_pretty_inhumans",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1768148944830,
+      "tag": "0002_married_storm",
+      "breakpoints": true
     }
   ]
 }

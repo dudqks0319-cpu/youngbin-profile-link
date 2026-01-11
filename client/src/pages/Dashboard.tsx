@@ -1,7 +1,9 @@
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { Link as LinkIcon, Image, Package, Mail, TrendingUp } from "lucide-react";
+
+const COLORS = ['#c084fc', '#a78bfa', '#818cf8', '#60a5fa', '#34d399', '#fbbf24', '#f87171', '#fb7185', '#f472b6', '#ec4899'];
 
 export default function Dashboard() {
   const { data: stats = [] } = trpc.links.stats.useQuery();

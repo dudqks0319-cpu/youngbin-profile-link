@@ -3,9 +3,32 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { ExternalLink, Mail, Instagram, TrendingUp } from "lucide-react";
+import { ExternalLink, Mail, Instagram, TrendingUp, Youtube, Music, Send, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+
+// Social media icons mapping
+const SOCIAL_ICONS: Record<string, any> = {
+  instagram: Instagram,
+  youtube: Youtube,
+  twitter: Music,
+  tiktok: Music,
+  twitch: Music,
+  discord: MessageCircle,
+  telegram: Send,
+  email: Mail,
+};
+
+const SOCIAL_COLORS: Record<string, string> = {
+  instagram: "hover:text-pink-500",
+  youtube: "hover:text-red-500",
+  twitter: "hover:text-blue-400",
+  tiktok: "hover:text-black dark:text-white",
+  twitch: "hover:text-purple-500",
+  discord: "hover:text-indigo-500",
+  telegram: "hover:text-blue-400",
+  email: "hover:text-gray-600",
+};
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -43,6 +66,7 @@ export default function Home() {
 
   const priorityLinks = links.filter(link => link.isPriority);
   const regularLinks = links.filter(link => !link.isPriority);
+  const socialLinks = (profile?.socialLinks as any) || {};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
@@ -73,6 +97,29 @@ export default function Home() {
                 <p className="text-muted-foreground max-w-md mx-auto">
                   {profile.bio}
                 </p>
+              )}
+              
+              {/* Social Media Icons */}
+              {Object.entries(socialLinks).some(([_, url]) => url) && (
+                <div className="flex justify-center gap-4 mt-4 pt-4 border-t border-border">
+                  {Object.entries(socialLinks).map(([platform, url]) => {
+                    if (!url) return null;
+                    const Icon = SOCIAL_ICONS[platform] || ExternalLink;
+                    const colorClass = SOCIAL_COLORS[platform] || "hover:text-primary";
+                    return (
+                      <a
+                        key={platform}
+                        href={url as string}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`transition-colors ${colorClass}`}
+                        title={platform}
+                      >
+                        <Icon className="w-5 h-5" />
+                      </a>
+                    );
+                  })}
+                </div>
               )}
             </div>
           </CardContent>

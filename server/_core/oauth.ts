@@ -28,13 +28,18 @@ export function registerOAuthRoutes(app: Express) {
         return;
       }
 
-      await db.upsertUser({
-        openId: userInfo.openId,
-        name: userInfo.name || null,
-        email: userInfo.email ?? null,
-        loginMethod: userInfo.loginMethod ?? userInfo.platform ?? null,
-        lastSignedIn: new Date(),
-      });
+      try {
+        await db.upsertUser({
+          openId: userInfo.openId,
+          name: userInfo.name || null,
+          email: userInfo.email ?? null,
+          loginMethod: userInfo.loginMethod ?? userInfo.platform ?? null,
+          lastSignedIn: new Date(),
+        });
+      } catch (dbError) {
+        console.error("[OAuth] Database error during user upsert:", dbError);
+        // Continue even if user upsert fails - user might already exist
+      }
 
       const sessionToken = await sdk.createSessionToken(userInfo.openId, {
         name: userInfo.name || "",

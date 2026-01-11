@@ -33,12 +33,23 @@ export const appRouter = router({
         bio: z.string().optional(),
         instagramHandle: z.string().optional(),
         profileImageUrl: z.string().optional(),
+        backgroundImageUrl: z.string().optional(),
+        backgroundColor: z.string().optional(),
+        socialLinks: z.any().optional(),
       }))
       .mutation(async ({ ctx, input }) => {
-        await db.upsertProfile({
+        const profileData: any = {
           userId: ctx.user.id,
-          ...input,
-        });
+          displayName: input.displayName,
+        };
+        if (input.bio !== undefined) profileData.bio = input.bio;
+        if (input.instagramHandle !== undefined) profileData.instagramHandle = input.instagramHandle;
+        if (input.profileImageUrl !== undefined) profileData.profileImageUrl = input.profileImageUrl;
+        if (input.backgroundImageUrl !== undefined) profileData.backgroundImageUrl = input.backgroundImageUrl;
+        if (input.backgroundColor !== undefined) profileData.backgroundColor = input.backgroundColor;
+        if (input.socialLinks) profileData.socialLinks = input.socialLinks;
+        
+        await db.upsertProfile(profileData);
         return { success: true };
       }),
   }),
