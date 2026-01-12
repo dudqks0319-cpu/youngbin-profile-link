@@ -6,12 +6,11 @@ import path from "path";
 import { defineConfig } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
-
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime()];
 
 export default defineConfig({
   plugins,
-  base: "/youngbin-profile-link/",
+  base: "/",
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
@@ -22,7 +21,7 @@ export default defineConfig({
   envDir: path.resolve(import.meta.dirname),
   publicDir: path.resolve(import.meta.dirname, "public"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "docs"),
+    outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,
   },
   server: {
