@@ -11,6 +11,7 @@ const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(
 
 export default defineConfig({
   plugins,
+  base: "/youngbin-profile-link/",
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
